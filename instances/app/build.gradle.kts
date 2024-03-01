@@ -3,6 +3,9 @@ plugins {
     id("com.squareup.anvil")
     id("kotlin-kapt")
 }
+android {
+    dynamicFeatures += setOf(":keychoose")
+}
 
 android.namespace = "com.lionzxy.flippertesttask"
 

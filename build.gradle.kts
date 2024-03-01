@@ -6,4 +6,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.kotlin.ksp) apply false
     alias(libs.plugins.square.anvil) apply false
+    alias(libs.plugins.androidDynamicFeature) apply false
+    alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
 }
