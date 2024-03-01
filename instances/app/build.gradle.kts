@@ -3,9 +3,6 @@ plugins {
     id("com.squareup.anvil")
     id("kotlin-kapt")
 }
-android {
-    dynamicFeatures += setOf(":keychoose")
-}
 
 android.namespace = "com.lionzxy.flippertesttask"
 
@@ -19,7 +16,8 @@ dependencies {
     implementation(projects.components.bottombar.impl)
     implementation(projects.components.lockerchoose.api)
     implementation(projects.components.lockerchoose.impl)
-
+    implementation(projects.components.keychoose.api)
+    implementation(projects.components.keychoose.impl)
 
     implementation(libs.compose.ui)
     implementation(libs.compose.foundation)

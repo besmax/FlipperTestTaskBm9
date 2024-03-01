@@ -1,15 +1,13 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.android.lib)
     alias(libs.plugins.kotlin.android)
     id("flipper.android-lib")
     id("flipper.anvil")
     id("com.google.devtools.ksp")
-
 }
 
 android {
-    namespace = "com.lionzxy.flippertesttask.database.impl"
+    namespace = "lionxyz.flippertesttask.database.api"
     compileSdk = 34
 
     defaultConfig {
@@ -17,10 +15,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
     }
 
     buildTypes {
@@ -42,9 +36,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.core.ktx)
     implementation(projects.components.core.di)
-    implementation(projects.components.database.api)
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.room.compiler)
+    implementation(projects.components.core.di)
 }
