@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity("lockers_keys_hub_table")
 data class LockersKeysHubEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     @ColumnInfo("locker_id") val lockerId: Int,
     @ColumnInfo("key_id") val keyId: Int,
 )

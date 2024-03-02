@@ -16,8 +16,9 @@ interface LockersKeysArchiveDao {
 
     @Query("SELECT lockers_table.number, keys_table.number FROM lockers_table " +
             "LEFT JOIN lockers_keys_archive_table ON lockers_table.number = lockers_keys_archive_table.locker_id " +
-            "LEFT JOIN keys_table ON lockers_keys_archive_table.key_id = keys_table.number")
-    suspend fun get(): LockersKeysArchiveEntity?
+            "LEFT JOIN keys_table ON lockers_keys_archive_table.key_id = keys_table.number " +
+            "WHERE lockers_keys_archive_table.locker_id = :lockerNumber AND lockers_keys_archive_table.key_id = :keyNumber")
+    suspend fun get(lockerNumber: Int, keyNumber: Int): LockersKeysArchiveEntity?
 
     @Upsert
     suspend fun insert(entity: LockersKeysArchiveEntity)
