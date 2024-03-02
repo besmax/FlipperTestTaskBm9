@@ -28,8 +28,8 @@ include(
     ":components:bottombar:impl",
     ":components:lockerchoose:api",
     ":components:lockerchoose:impl",
+    ":components:database:api",
     ":components:database:impl",
     ":components:keychoose:api",
     ":components:keychoose:impl"
 )
-include(":components:database:api")

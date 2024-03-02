@@ -7,9 +7,20 @@ import com.lionzxy.flippertesttask.database.impl.dao.LockerDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockersKeysArchiveDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockersKeysDeviceDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockersKeysHubDao
+import com.lionzxy.flippertesttask.database.impl.model.KeyEntity
+import com.lionzxy.flippertesttask.database.impl.model.LockerEntity
+import com.lionzxy.flippertesttask.database.impl.model.LockersKeysArchiveEntity
+import com.lionzxy.flippertesttask.database.impl.model.LockersKeysDeviceEntity
+import com.lionzxy.flippertesttask.database.impl.model.LockersKeysHubEntity
 
 @Database(
-    entities = [],
+    entities = [
+        KeyEntity::class,
+        LockerEntity::class,
+        LockersKeysArchiveEntity::class,
+        LockersKeysDeviceEntity::class,
+        LockersKeysHubEntity::class
+    ],
     version = 1,
     exportSchema = true,
 )

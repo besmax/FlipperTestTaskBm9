@@ -10,6 +10,7 @@ dependencies {
     implementation(projects.components.keychoose.api)
 
     implementation(projects.components.core.di)
+    implementation(projects.components.database.api)
     implementation(projects.components.core.decompose)
 
     implementation(libs.compose.ui)

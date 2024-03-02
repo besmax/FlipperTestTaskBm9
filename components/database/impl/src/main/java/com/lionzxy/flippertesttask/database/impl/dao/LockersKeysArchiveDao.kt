@@ -14,7 +14,7 @@ interface LockersKeysArchiveDao {
             "LEFT JOIN keys_table ON lockers_keys_archive_table.key_id = keys_table.number")
     suspend fun getAllLockers(): List<LockerEntity>
 
-    @Query("SELECT lockers_table.number, keys_table.number FROM lockers_table " +
+    @Query("SELECT lockers_keys_archive_table.id, lockers_keys_archive_table.locker_id, lockers_keys_archive_table.key_id FROM lockers_table " +
             "LEFT JOIN lockers_keys_archive_table ON lockers_table.number = lockers_keys_archive_table.locker_id " +
             "LEFT JOIN keys_table ON lockers_keys_archive_table.key_id = keys_table.number " +
             "WHERE lockers_keys_archive_table.locker_id = :lockerNumber AND lockers_keys_archive_table.key_id = :keyNumber")

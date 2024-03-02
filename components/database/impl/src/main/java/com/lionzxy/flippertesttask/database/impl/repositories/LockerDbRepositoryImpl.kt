@@ -1,18 +1,19 @@
 package com.lionzxy.flippertesttask.database.impl.repositories
 
+import com.lionzxy.flippertesttask.core.di.AppGraph
 import com.lionzxy.flippertesttask.database.impl.converters.map
-import com.lionzxy.flippertesttask.database.impl.dao.KeyDao
-import com.lionzxy.flippertesttask.database.impl.dao.LockerDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockersKeysArchiveDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockersKeysDeviceDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockersKeysHubDao
 import com.lionzxy.flippertesttask.database.impl.model.LockersKeysArchiveEntity
 import com.lionzxy.flippertesttask.database.impl.model.LockersKeysDeviceEntity
 import com.lionzxy.flippertesttask.database.impl.model.LockersKeysHubEntity
+import com.squareup.anvil.annotations.ContributesBinding
 import lionxyz.flippertesttask.database.api.model.LockerModel
 import lionxyz.flippertesttask.database.api.repositories.LockerDbRepository
 import javax.inject.Inject
 
+@ContributesBinding(AppGraph::class)
 class LockerDbRepositoryImpl @Inject constructor(
     private val lockersKeysArchiveDao: LockersKeysArchiveDao,
     private val lockersKeysDeviceDao: LockersKeysDeviceDao,

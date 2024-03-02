@@ -18,6 +18,8 @@ dependencies {
     implementation(projects.components.lockerchoose.impl)
     implementation(projects.components.keychoose.api)
     implementation(projects.components.keychoose.impl)
+    implementation(projects.components.database.api)
+    implementation(projects.components.database.impl)
 
     implementation(libs.compose.ui)
     implementation(libs.compose.foundation)

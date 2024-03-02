@@ -1,4 +1,4 @@
-package com.lionzxy.flippertesttask.database.impl
+package com.lionzxy.flippertesttask.database.impl.utils
 
 import com.lionzxy.flippertesttask.database.impl.model.KeyEntity
 import com.lionzxy.flippertesttask.database.impl.model.LockerEntity

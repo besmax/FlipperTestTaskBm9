@@ -10,6 +10,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.lionzxy.flippertesttask.core.di.AppGraph
 import com.lionzxy.flippertesttask.keychoose.impl.viewmodel.KeyViewModel
 import com.lionzxy.flippertesttask.keychooseapi.KeyChooseDecomposeComponent
@@ -24,6 +25,9 @@ class KeyChooseDecomposeComponentImpl @AssistedInject constructor(
     @Assisted private val tabName: String,
     private val keyViewModelProvider: Provider<KeyViewModel>
 ) : KeyChooseDecomposeComponent(componentContext) {
+
+    private val keyViewModel = instanceKeeper.getOrCreate { keyViewModelProvider.get() }
+
     @Composable
     override fun Render() {
         Column(
