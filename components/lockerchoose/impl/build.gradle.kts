@@ -10,6 +10,7 @@ dependencies {
     implementation(projects.components.core.di)
     implementation(projects.components.database.api)
     implementation(projects.components.core.decompose)
+    implementation(projects.components.core.ui)
 
     implementation(libs.compose.ui)
     implementation(libs.compose.foundation)

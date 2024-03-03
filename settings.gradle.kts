@@ -33,3 +33,4 @@ include(
     ":components:keychoose:api",
     ":components:keychoose:impl"
 )
+include(":components:core:ui")

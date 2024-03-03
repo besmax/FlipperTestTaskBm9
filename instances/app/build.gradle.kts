@@ -9,6 +9,8 @@ android.namespace = "com.lionzxy.flippertesttask"
 dependencies {
     implementation(projects.components.core.di)
     implementation(projects.components.core.decompose)
+    implementation(projects.components.core.ui)
+
 
     implementation(projects.components.singleactivity)
 

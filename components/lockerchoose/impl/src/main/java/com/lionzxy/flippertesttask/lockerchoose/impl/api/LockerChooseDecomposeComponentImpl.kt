@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.sp
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.lionzxy.flippertesttask.core.di.AppGraph
+import com.lionzxy.flippertesttask.core.uilifecycle.viewModelWithFactory
 import com.lionzxy.flippertesttask.lockerchoose.api.LockerChooseDecomposeComponent
 import com.lionzxy.flippertesttask.lockerchoose.impl.composable.LockerComposableScreen
 import com.lionzxy.flippertesttask.lockerchoose.impl.viewmodel.LockerViewModel
@@ -26,13 +27,15 @@ import javax.inject.Provider
 class LockerChooseDecomposeComponentImpl @AssistedInject constructor(
     @Assisted componentContext: ComponentContext,
     @Assisted private val tabName: String,
-    private val lockerViewModelProvider: Provider<LockerViewModel>
+    private val lockerViewModelFactory: LockerViewModel.Factory
 ) : LockerChooseDecomposeComponent(componentContext) {
-    private val lockerViewModel = instanceKeeper.getOrCreate { lockerViewModelProvider.get() }
 
     @Composable
     override fun Render() {
-        val lockerSet by lockerViewModel.getLockers().collectAsState()
+        val lockerViewModel = viewModelWithFactory(key = tabName) {
+            lockerViewModelFactory(tabName)
+        }
+        val uiState by lockerViewModel.getUiState().collectAsState()
         Column(
             Modifier.fillMaxSize()
         ) {
@@ -42,7 +45,7 @@ class LockerChooseDecomposeComponentImpl @AssistedInject constructor(
                 fontSize = 32.sp,
                 textAlign = TextAlign.Start
             )
-            LockerComposableScreen(lockerSet)
+            LockerComposableScreen(uiState)
         }
     }
 

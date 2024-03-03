@@ -2,6 +2,7 @@ package com.lionzxy.flippertesttask.database.impl.repositories
 
 import com.lionzxy.flippertesttask.core.di.AppGraph
 import com.lionzxy.flippertesttask.database.impl.converters.map
+import com.lionzxy.flippertesttask.database.impl.dao.LockerDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockersKeysArchiveDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockersKeysDeviceDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockersKeysHubDao
@@ -15,13 +16,16 @@ import javax.inject.Inject
 
 @ContributesBinding(AppGraph::class)
 class LockerDbRepositoryImpl @Inject constructor(
+    private val lockerDao: LockerDao,
     private val lockersKeysArchiveDao: LockersKeysArchiveDao,
     private val lockersKeysDeviceDao: LockersKeysDeviceDao,
     private val lockersKeysHubDao: LockersKeysHubDao,
 ) : LockerDbRepository {
 
     override suspend fun getAllArchive(): List<LockerModel> {
-        return lockersKeysArchiveDao.getAllLockers().map { it.map() }
+        val archiveLockers = lockersKeysArchiveDao.getAllLockers().map { it.map() }
+        val lockers = lockerDao.getAll().map { it.map() }
+        return mergeLists(lockers, archiveLockers)
     }
 
     override suspend fun getAllDevice(): List<LockerModel> {
@@ -74,5 +78,23 @@ class LockerDbRepositoryImpl @Inject constructor(
         }
     }
 
+    private fun mergeLists(
+        main: List<LockerModel>,
+        secondary: List<LockerModel>
+    ): List<LockerModel> {
+        return if (secondary.isEmpty()) {
+            main
+        } else {
+            val resultList = main.toMutableList()
+            secondary.forEach { secondaryLocker ->
+                val locker = resultList.find { it.number == secondaryLocker.number }
+                val index = resultList.indexOf(locker)
+                if (locker != null) {
+                    resultList[index] = locker.copy(number = secondaryLocker.number)
+                }
+            }
+            resultList
+        }
+    }
 
 }
