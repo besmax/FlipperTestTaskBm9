@@ -18,14 +18,14 @@ class LockerViewModel @AssistedInject constructor(
     private val lockerDbRepository: LockerDbRepository
 ) : DecomposeViewModel() {
 
-    private val lockerSet: MutableStateFlow<LockerChooseScreenState> =
+    private val uiState: MutableStateFlow<LockerChooseScreenState> =
         MutableStateFlow(LockerChooseScreenState.Loading)
 
     init {
         getLockers()
     }
 
-    fun getUiState() = lockerSet.asStateFlow()
+    fun getUiState() = uiState.asStateFlow()
 
     private fun getLockers() {
         viewModelScope.launch {
@@ -42,7 +42,7 @@ class LockerViewModel @AssistedInject constructor(
                 }
 
             }
-            lockerSet.value = LockerChooseScreenState.Content(deferred.await())
+            uiState.value = LockerChooseScreenState.Content(deferred.await())
         }
     }
 

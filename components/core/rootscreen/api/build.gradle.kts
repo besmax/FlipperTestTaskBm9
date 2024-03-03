@@ -4,14 +4,11 @@ plugins {
     id("kotlinx-serialization")
 }
 
-android.namespace = "com.lionzxy.flippertesttask.core.decompose"
+android.namespace = "com.lionzxy.flippertesttask.core.rootscreen.api"
 
 dependencies {
     implementation(projects.components.core.di)
-
-    implementation(libs.compose.ui)
-    implementation(libs.compose.foundation)
+    implementation(projects.components.core.decompose)
 
     implementation(libs.bundles.decompose)
-    implementation(libs.essenty.lifecycle.coroutines)
 }

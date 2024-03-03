@@ -34,3 +34,6 @@ include(
     ":components:keychoose:impl"
 )
 include(":components:core:ui")
+include(":components:core:rootscreen")
+include(":components:core:rootscreen:api")
+include(":components:core:rootscreen:impl")

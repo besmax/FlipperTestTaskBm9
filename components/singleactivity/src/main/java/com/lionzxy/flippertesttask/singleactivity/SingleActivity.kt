@@ -36,10 +36,7 @@ class SingleActivity : AppCompatActivity(), LogTagProvider {
         window.navigationBarColor = ResourcesCompat.getColor(resources, R.color.accent, theme)
 
         setContent {
-            root.Render(
-                modifier = Modifier
-                    .fillMaxSize()
-            )
+            root.Render()
 
         }
         info { "Create new activity with hashcode: ${this.hashCode()} " + "and intent $intent" }

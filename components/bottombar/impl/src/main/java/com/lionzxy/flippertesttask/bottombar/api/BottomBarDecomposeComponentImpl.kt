@@ -39,7 +39,7 @@ class BottomBarDecomposeComponentImpl @AssistedInject constructor(
 
     @Composable
     @Suppress("NonSkippableComposable")
-    override fun Render(modifier: Modifier) {
+    fun RenderBottomBar(modifier: Modifier = Modifier) {
         val childStack by stack.subscribeAsState()
 
         ComposableBottomBarScreen(
@@ -54,7 +54,6 @@ class BottomBarDecomposeComponentImpl @AssistedInject constructor(
             }
         )
     }
-
 
     private fun child(
         config: BottomBarConfig,
@@ -82,5 +81,10 @@ class BottomBarDecomposeComponentImpl @AssistedInject constructor(
         override fun invoke(
             componentContext: ComponentContext
         ): BottomBarDecomposeComponentImpl
+    }
+
+    @Composable
+    override fun Render() {
+        RenderBottomBar()
     }
 }

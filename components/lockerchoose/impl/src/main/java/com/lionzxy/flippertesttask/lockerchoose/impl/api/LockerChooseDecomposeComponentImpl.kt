@@ -36,6 +36,7 @@ class LockerChooseDecomposeComponentImpl @AssistedInject constructor(
             lockerViewModelFactory(tabName)
         }
         val uiState by lockerViewModel.getUiState().collectAsState()
+
         Column(
             Modifier.fillMaxSize()
         ) {
