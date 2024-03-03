@@ -26,7 +26,9 @@ import kotlinx.collections.immutable.toPersistentList
 
 @Composable
 fun LockerComposableScreen(
-    uiState: LockerChooseScreenState
+    uiState: LockerChooseScreenState,
+    // todo() need tabName and Locker number
+    onLockerClick: (String, Int) -> Unit
 ) {
     when (uiState) {
         is LockerChooseScreenState.Content -> {
