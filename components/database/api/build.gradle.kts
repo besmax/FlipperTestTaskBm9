@@ -9,4 +9,5 @@ android.namespace = "com.lionzxy.flippertesttask.database.api"
 dependencies {
     implementation(projects.components.core.di)
     implementation(libs.dagger)
+    implementation(libs.kotlin.coroutines)
 }

@@ -4,6 +4,7 @@ import com.lionzxy.flippertesttask.core.uilifecycle.DecomposeViewModel
 import com.lionzxy.flippertesttask.keychoose.impl.model.map
 import com.lionzxy.flippertesttask.keychooseapi.model.KeyChooseScreenState
 import kotlinx.collections.immutable.toPersistentList
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -28,7 +29,7 @@ class KeyViewModel @Inject constructor(
     private fun getKeys() {
         uiState.value = KeyChooseScreenState.Loading
         viewModelScope.launch {
-            val keys = keyDbRepository.getAll().map { it.map() }
+            val keys = keyDbRepository.getAll(Dispatchers.IO).map { it.map() }
             uiState.value = KeyChooseScreenState.Content(keys)
         }
     }
@@ -36,11 +37,11 @@ class KeyViewModel @Inject constructor(
     fun setKey(lockerNumber: Int, keyNumber: Int, tabName: String) {
         viewModelScope.launch {
             when (tabName) {
-                "Device" -> lockerDbRepository.setKeyDevice(lockerNumber, keyNumber)
+                "Device" -> lockerDbRepository.setKeyDevice(lockerNumber, keyNumber, Dispatchers.IO)
 
-                "Archive" -> lockerDbRepository.setKeyArchive(lockerNumber, keyNumber)
+                "Archive" -> lockerDbRepository.setKeyArchive(lockerNumber, keyNumber, Dispatchers.IO)
 
-                else -> lockerDbRepository.setKeyHub(lockerNumber, keyNumber)
+                else -> lockerDbRepository.setKeyHub(lockerNumber, keyNumber, Dispatchers.IO)
             }
         }
     }

@@ -7,6 +7,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.collections.immutable.toPersistentList
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -31,14 +32,14 @@ class LockerViewModel @AssistedInject constructor(
         viewModelScope.launch {
             val deferred = viewModelScope.async {
                 when (tabName) {
-                    "Device" -> lockerDbRepository.getAllDevice().map { it.map() }
+                    "Device" -> lockerDbRepository.getAllDevice(Dispatchers.IO).map { it.map() }
                         .toPersistentList()
 
-                    "Archive" -> lockerDbRepository.getAllArchive().map { it.map() }
+                    "Archive" -> lockerDbRepository.getAllArchive(Dispatchers.IO).map { it.map() }
                         .toPersistentList()
 
-                    "Hub" -> lockerDbRepository.getAllHub().map { it.map() }.toPersistentList()
-                    else -> lockerDbRepository.getAllDevice().map { it.map() }.toPersistentList()
+                    "Hub" -> lockerDbRepository.getAllHub(Dispatchers.IO).map { it.map() }.toPersistentList()
+                    else -> lockerDbRepository.getAllDevice(Dispatchers.IO).map { it.map() }.toPersistentList()
                 }
 
             }

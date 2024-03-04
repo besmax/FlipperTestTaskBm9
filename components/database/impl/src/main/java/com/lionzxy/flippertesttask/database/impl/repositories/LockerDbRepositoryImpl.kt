@@ -1,6 +1,5 @@
 package com.lionzxy.flippertesttask.database.impl.repositories
 
-import android.util.Log
 import com.lionzxy.flippertesttask.core.di.AppGraph
 import com.lionzxy.flippertesttask.database.impl.converters.map
 import com.lionzxy.flippertesttask.database.impl.dao.LockerDao
@@ -11,6 +10,8 @@ import com.lionzxy.flippertesttask.database.impl.model.LockersKeysArchiveEntity
 import com.lionzxy.flippertesttask.database.impl.model.LockersKeysDeviceEntity
 import com.lionzxy.flippertesttask.database.impl.model.LockersKeysHubEntity
 import com.squareup.anvil.annotations.ContributesBinding
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import lionxyz.flippertesttask.database.api.model.LockerModel
 import lionxyz.flippertesttask.database.api.repositories.LockerDbRepository
 import javax.inject.Inject
@@ -23,25 +24,35 @@ class LockerDbRepositoryImpl @Inject constructor(
     private val lockersKeysHubDao: LockersKeysHubDao,
 ) : LockerDbRepository {
 
-    override suspend fun getAllArchive(): List<LockerModel> {
-        val archiveLockers = lockersKeysArchiveDao.getAllLockers().map { it.map() }
-        val lockers = lockerDao.getAll().map { it.map() }
+    override suspend fun getAllArchive(dispatcher: CoroutineDispatcher): List<LockerModel> {
+        val archiveLockers = withContext(dispatcher) {
+            lockersKeysArchiveDao.getAllLockers().map { it.map() }
+        }
+        val lockers = withContext(dispatcher) {
+            lockerDao.getAll().map { it.map() }
+        }
         return mergeLists(lockers, archiveLockers)
     }
 
-    override suspend fun getAllDevice(): List<LockerModel> {
-        val deviceLockers = lockersKeysDeviceDao.getAllLockers().map { it.map() }
-        val lockers = lockerDao.getAll().map { it.map() }
+    override suspend fun getAllDevice(dispatcher: CoroutineDispatcher): List<LockerModel> {
+        val deviceLockers =
+            withContext(dispatcher) { lockersKeysDeviceDao.getAllLockers().map { it.map() } }
+        val lockers = withContext(dispatcher) { lockerDao.getAll().map { it.map() } }
         return mergeLists(lockers, deviceLockers)
     }
 
-    override suspend fun getAllHub(): List<LockerModel> {
-        val hubLockers = lockersKeysHubDao.getAllLockers().map { it.map() }
-        val lockers = lockerDao.getAll().map { it.map() }
+    override suspend fun getAllHub(dispatcher: CoroutineDispatcher): List<LockerModel> {
+        val hubLockers =
+            withContext(dispatcher) { lockersKeysHubDao.getAllLockers().map { it.map() } }
+        val lockers = withContext(dispatcher) { lockerDao.getAll().map { it.map() } }
         return mergeLists(lockers, hubLockers)
     }
 
-    override suspend fun setKeyArchive(lockerNumber: Int, keyNumber: Int) {
+    override suspend fun setKeyArchive(
+        lockerNumber: Int,
+        keyNumber: Int,
+        dispatcher: CoroutineDispatcher
+    ) = withContext(dispatcher) {
         val currentEntity = lockersKeysArchiveDao.get(lockerNumber)
         if (currentEntity == null) {
             lockersKeysArchiveDao.insert(
@@ -55,7 +66,11 @@ class LockerDbRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun setKeyDevice(lockerNumber: Int, keyNumber: Int) {
+    override suspend fun setKeyDevice(
+        lockerNumber: Int,
+        keyNumber: Int,
+        dispatcher: CoroutineDispatcher
+    ) = withContext(dispatcher) {
         val currentEntity = lockersKeysDeviceDao.get(lockerNumber)
         if (currentEntity == null) {
             lockersKeysDeviceDao.insert(
@@ -69,7 +84,11 @@ class LockerDbRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun setKeyHub(lockerNumber: Int, keyNumber: Int) {
+    override suspend fun setKeyHub(
+        lockerNumber: Int,
+        keyNumber: Int,
+        dispatcher: CoroutineDispatcher
+    ) = withContext(dispatcher) {
         val currentEntity = lockersKeysHubDao.get(lockerNumber)
         if (currentEntity == null) {
             lockersKeysHubDao.insert(
@@ -98,8 +117,6 @@ class LockerDbRepositoryImpl @Inject constructor(
                     resultList[index] = locker.copy(keyNumber = secondaryLocker.keyNumber)
                 }
             }
-            Log.e("LockerDbRepositoryImpl", "merged = $resultList")
-
             resultList
         }
     }
