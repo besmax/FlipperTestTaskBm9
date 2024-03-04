@@ -2,7 +2,7 @@ package com.lionzxy.flippertesttask.lockerchoose.impl.viewmodel
 
 import com.lionzxy.flippertesttask.core.uilifecycle.DecomposeViewModel
 import com.lionzxy.flippertesttask.lockerchoose.api.model.LockerChooseScreenState
-import com.lionzxy.flippertesttask.lockerchoose.impl.config.map
+import com.lionzxy.flippertesttask.lockerchoose.impl.model.map
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

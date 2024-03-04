@@ -1,5 +1,6 @@
 package com.lionzxy.flippertesttask.database.impl.repositories
 
+import android.util.Log
 import com.lionzxy.flippertesttask.core.di.AppGraph
 import com.lionzxy.flippertesttask.database.impl.converters.map
 import com.lionzxy.flippertesttask.database.impl.dao.LockerDao
@@ -29,15 +30,19 @@ class LockerDbRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAllDevice(): List<LockerModel> {
-        return lockersKeysDeviceDao.getAllLockers().map { it.map() }
+        val deviceLockers = lockersKeysDeviceDao.getAllLockers().map { it.map() }
+        val lockers = lockerDao.getAll().map { it.map() }
+        return mergeLists(lockers, deviceLockers)
     }
 
     override suspend fun getAllHub(): List<LockerModel> {
-        return lockersKeysHubDao.getAllLockers().map { it.map() }
+        val hubLockers = lockersKeysHubDao.getAllLockers().map { it.map() }
+        val lockers = lockerDao.getAll().map { it.map() }
+        return mergeLists(lockers, hubLockers)
     }
 
     override suspend fun setKeyArchive(lockerNumber: Int, keyNumber: Int) {
-        val currentEntity = lockersKeysArchiveDao.get(lockerNumber, keyNumber)
+        val currentEntity = lockersKeysArchiveDao.get(lockerNumber)
         if (currentEntity == null) {
             lockersKeysArchiveDao.insert(
                 LockersKeysArchiveEntity(
@@ -51,7 +56,7 @@ class LockerDbRepositoryImpl @Inject constructor(
     }
 
     override suspend fun setKeyDevice(lockerNumber: Int, keyNumber: Int) {
-        val currentEntity = lockersKeysDeviceDao.get(lockerNumber, keyNumber)
+        val currentEntity = lockersKeysDeviceDao.get(lockerNumber)
         if (currentEntity == null) {
             lockersKeysDeviceDao.insert(
                 LockersKeysDeviceEntity(
@@ -65,7 +70,7 @@ class LockerDbRepositoryImpl @Inject constructor(
     }
 
     override suspend fun setKeyHub(lockerNumber: Int, keyNumber: Int) {
-        val currentEntity = lockersKeysHubDao.get(lockerNumber, keyNumber)
+        val currentEntity = lockersKeysHubDao.get(lockerNumber)
         if (currentEntity == null) {
             lockersKeysHubDao.insert(
                 LockersKeysHubEntity(
@@ -90,9 +95,11 @@ class LockerDbRepositoryImpl @Inject constructor(
                 val locker = resultList.find { it.number == secondaryLocker.number }
                 val index = resultList.indexOf(locker)
                 if (locker != null) {
-                    resultList[index] = locker.copy(number = secondaryLocker.number)
+                    resultList[index] = locker.copy(keyNumber = secondaryLocker.keyNumber)
                 }
             }
+            Log.e("LockerDbRepositoryImpl", "merged = $resultList")
+
             resultList
         }
     }

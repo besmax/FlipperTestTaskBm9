@@ -3,7 +3,6 @@ package com.lionzxy.flippertesttask.keychoose.impl.api
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -28,6 +27,7 @@ class KeyChooseDecomposeComponentImpl @AssistedInject constructor(
     @Assisted componentContext: ComponentContext,
     @Assisted private val tabName: String,
     @Assisted private val lockerNumber: Int,
+    @Assisted private val navigateBack: () -> Unit,
     private val keyViewModelProvider: Provider<KeyViewModel>
 ) : KeyChooseDecomposeComponent(componentContext) {
 
@@ -46,7 +46,15 @@ class KeyChooseDecomposeComponentImpl @AssistedInject constructor(
                 textAlign = TextAlign.Start
             )
 
-            KeyComposableScreen(lockerNumber = lockerNumber, uiState = uiState, onKeyClick = {  })
+            KeyComposableScreen(
+                lockerNumber = lockerNumber,
+                uiState = uiState,
+                onKeyClick = { lockerNumber, keyNumber, tabName ->
+                    keyViewModel.setKey(lockerNumber, keyNumber, tabName)
+                    navigateBack.invoke()
+                },
+                tabName = tabName
+            )
         }
     }
 
@@ -57,6 +65,7 @@ class KeyChooseDecomposeComponentImpl @AssistedInject constructor(
             componentContext: ComponentContext,
             tabName: String,
             lockerNumber: Int,
+            navigateBack: () -> Unit,
         ): KeyChooseDecomposeComponentImpl
     }
 

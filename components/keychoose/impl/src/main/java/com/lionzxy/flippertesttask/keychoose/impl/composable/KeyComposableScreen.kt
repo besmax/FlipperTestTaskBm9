@@ -1,6 +1,7 @@
 package com.lionzxy.flippertesttask.keychoose.impl.composable
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,10 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.lionzxy.flippertesttask.core.uilifecycle.findActivity
 import com.lionzxy.flippertesttask.keychooseapi.model.KeyChooseScreenState
 import com.lionzxy.flippertesttask.keychooseapi.model.KeyModel
 import kotlinx.collections.immutable.PersistentList
@@ -30,14 +28,15 @@ import kotlinx.collections.immutable.toPersistentList
 fun KeyComposableScreen(
     lockerNumber: Int,
     uiState: KeyChooseScreenState,
-    onKeyClick: (Int) -> Unit,
+    onKeyClick: (Int, Int, String) -> Unit,
+    tabName: String
 ) {
 
     when (uiState) {
         is KeyChooseScreenState.Loading -> ShowLoading()
         is KeyChooseScreenState.Content -> {
             val keysList = remember(uiState) { uiState.keys.toPersistentList() }
-            ShowContent(keysList, onKeyClick)
+            ShowContent(keysList, onKeyClick, tabName, lockerNumber)
         }
     }
 }
@@ -45,8 +44,10 @@ fun KeyComposableScreen(
 @Composable
 fun ShowContent(
     keys: PersistentList<KeyModel>,
-    onKeyClick: (Int) -> Unit
-    ) {
+    onKeyClick: (Int, Int, String) -> Unit,
+    tabName: String,
+    lockerNumber: Int
+) {
     LazyColumn {
         items(
             items = keys,
@@ -58,7 +59,11 @@ fun ShowContent(
                     .height(1.dp)
                     .background(Color.Gray)
             )
-            Row(Modifier.padding(16.dp)) {
+            Row(
+                Modifier
+                    .padding(16.dp)
+                    .clickable { onKeyClick.invoke(lockerNumber, keyItem.number, tabName) }
+            ) {
                 Text(
                     modifier = Modifier
                         .padding()

@@ -1,4 +1,4 @@
-package com.lionzxy.flippertesttask.keychoose.impl.config
+package com.lionzxy.flippertesttask.keychoose.impl.model
 
 import lionxyz.flippertesttask.database.api.model.KeyModel
 

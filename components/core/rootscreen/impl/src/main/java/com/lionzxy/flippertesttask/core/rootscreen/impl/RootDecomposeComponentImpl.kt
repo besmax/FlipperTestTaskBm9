@@ -10,7 +10,9 @@ import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
+import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
@@ -19,6 +21,7 @@ import com.lionzxy.flippertesttask.bottombar.BottomBarDecomposeComponent
 import com.lionzxy.flippertesttask.core.di.AppGraph
 import com.lionzxy.flippertesttask.core.uilifecycle.findActivity
 import com.lionzxy.flippertesttask.keychooseapi.KeyChooseDecomposeComponent
+import com.lionzxy.flippertesttask.rootscreen.api.RootDecomposeComponent
 import com.lionzxy.flippertesttask.rootscreen.config.RootScreenConfig
 import com.squareup.anvil.annotations.ContributesBinding
 import dagger.assisted.Assisted
@@ -30,7 +33,7 @@ class RootDecomposeComponentImpl @AssistedInject constructor(
     @Assisted componentContext: ComponentContext,
     private val bottomBarDecomposeComponentFactory: BottomBarDecomposeComponent.Factory,
     private val keyChooseDecomposeComponentFactory: KeyChooseDecomposeComponent.Factory,
-) : com.lionzxy.flippertesttask.rootscreen.api.RootDecomposeComponent(componentContext),
+) : RootDecomposeComponent(componentContext),
     ComponentContext by componentContext {
 
     private val scope = coroutineScope(Dispatchers.Default)
@@ -61,6 +64,7 @@ class RootDecomposeComponentImpl @AssistedInject constructor(
             componentContext,
             config.tabName,
             config.lockerNumber,
+            {  }
         )
 
     }
@@ -109,9 +113,9 @@ class RootDecomposeComponentImpl @AssistedInject constructor(
     @AssistedFactory
     @ContributesBinding(
         AppGraph::class,
-        com.lionzxy.flippertesttask.rootscreen.api.RootDecomposeComponent.Factory::class
+        RootDecomposeComponent.Factory::class
     )
-    interface Factory : com.lionzxy.flippertesttask.rootscreen.api.RootDecomposeComponent.Factory {
+    interface Factory : RootDecomposeComponent.Factory {
         override operator fun invoke(
             componentContext: ComponentContext,
         ): RootDecomposeComponentImpl

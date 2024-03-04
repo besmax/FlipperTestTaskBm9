@@ -11,6 +11,7 @@ abstract class KeyChooseDecomposeComponent(
             componentContext: ComponentContext,
             tabName: String,
             lockerNumber: Int,
+            navigateBack: () -> Unit,
         ): KeyChooseDecomposeComponent
     }
 }

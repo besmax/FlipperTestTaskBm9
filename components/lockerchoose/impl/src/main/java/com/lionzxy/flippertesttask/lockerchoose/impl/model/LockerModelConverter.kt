@@ -1,4 +1,4 @@
-package com.lionzxy.flippertesttask.lockerchoose.impl.config
+package com.lionzxy.flippertesttask.lockerchoose.impl.model
 
 import lionxyz.flippertesttask.database.api.model.LockerModel
 
