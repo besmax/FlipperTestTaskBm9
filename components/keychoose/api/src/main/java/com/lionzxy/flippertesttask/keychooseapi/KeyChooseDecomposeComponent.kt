@@ -9,7 +9,8 @@ abstract class KeyChooseDecomposeComponent(
     fun interface Factory {
         operator fun invoke(
             componentContext: ComponentContext,
-            tabName: String
+            tabName: String,
+            lockerNumber: Int,
         ): KeyChooseDecomposeComponent
     }
 }

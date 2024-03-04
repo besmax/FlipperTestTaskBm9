@@ -9,12 +9,14 @@ import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.flipperdevices.core.decompose.DecomposeComponent
 import com.lionzxy.flippertesttask.bottombar.BottomBarDecomposeComponent
 import com.lionzxy.flippertesttask.core.di.AppGraph
 import com.lionzxy.flippertesttask.keychooseapi.KeyChooseDecomposeComponent
+import com.lionzxy.flippertesttask.rootscreen.config.RootScreenConfig
 import com.squareup.anvil.annotations.ContributesBinding
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -46,12 +48,16 @@ class RootDecomposeComponentImpl @AssistedInject constructor(
         componentContext: ComponentContext
     ): DecomposeComponent = when (config) {
         is com.lionzxy.flippertesttask.rootscreen.config.RootScreenConfig.BottomBar -> bottomBarDecomposeComponentFactory(
-            componentContext
+            componentContext = componentContext,
+            onLockerChosen = { tabName, lockerNumber ->
+                navigation.push(RootScreenConfig.KeyChoose(tabName, lockerNumber))
+            },
         )
 
         is com.lionzxy.flippertesttask.rootscreen.config.RootScreenConfig.KeyChoose -> keyChooseDecomposeComponentFactory(
             componentContext,
             config.tabName,
+            config.lockerNumber,
         )
 
     }

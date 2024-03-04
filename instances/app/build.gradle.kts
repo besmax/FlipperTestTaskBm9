@@ -11,8 +11,9 @@ dependencies {
     implementation(projects.components.core.decompose)
     implementation(projects.components.core.ui)
 
-
     implementation(projects.components.singleactivity)
+    implementation(projects.components.core.rootscreen.api)
+    implementation(projects.components.core.rootscreen.impl)
 
     implementation(projects.components.bottombar.api)
     implementation(projects.components.bottombar.impl)

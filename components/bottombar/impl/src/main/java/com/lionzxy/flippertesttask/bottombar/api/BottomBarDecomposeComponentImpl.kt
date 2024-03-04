@@ -25,7 +25,8 @@ import dagger.assisted.AssistedInject
 
 class BottomBarDecomposeComponentImpl @AssistedInject constructor(
     @Assisted componentContext: ComponentContext,
-    private val lockerChooseDecomposeComponentFactory: LockerChooseDecomposeComponent.Factory
+    private val lockerChooseDecomposeComponentFactory: LockerChooseDecomposeComponent.Factory,
+    @Assisted private val onLockerChosen: (String, Int) -> Unit,
 ) : BottomBarDecomposeComponent(), ComponentContext by componentContext {
     private val navigation = StackNavigation<BottomBarConfig>()
 
@@ -61,17 +62,20 @@ class BottomBarDecomposeComponentImpl @AssistedInject constructor(
     ): DecomposeComponent = when (config) {
         BottomBarConfig.Archive -> lockerChooseDecomposeComponentFactory(
             componentContext = componentContext,
-            tabName = config.enum.tabName
+            tabName = config.enum.tabName,
+            onLockerClick = onLockerChosen,
         )
 
         BottomBarConfig.Device -> lockerChooseDecomposeComponentFactory(
             componentContext = componentContext,
-            tabName = config.enum.tabName
+            tabName = config.enum.tabName,
+            onLockerClick = onLockerChosen,
         )
 
         is BottomBarConfig.Hub -> lockerChooseDecomposeComponentFactory(
             componentContext = componentContext,
-            tabName = config.enum.tabName
+            tabName = config.enum.tabName,
+            onLockerClick = onLockerChosen
         )
     }
 
@@ -79,7 +83,8 @@ class BottomBarDecomposeComponentImpl @AssistedInject constructor(
     @ContributesBinding(AppGraph::class, BottomBarDecomposeComponent.Factory::class)
     fun interface Factory : BottomBarDecomposeComponent.Factory {
         override fun invoke(
-            componentContext: ComponentContext
+            componentContext: ComponentContext,
+            onLockerChosen: (String, Int) -> Unit
         ): BottomBarDecomposeComponentImpl
     }
 

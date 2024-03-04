@@ -9,5 +9,5 @@ sealed class RootScreenConfig {
     data object BottomBar: RootScreenConfig()
 
     @Serializable
-    data class KeyChoose(val tabName: String): RootScreenConfig()
+    data class KeyChoose(val tabName: String, val lockerNumber: Int): RootScreenConfig()
 }

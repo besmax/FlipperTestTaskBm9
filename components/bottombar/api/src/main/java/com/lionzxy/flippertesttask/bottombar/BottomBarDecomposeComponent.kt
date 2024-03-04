@@ -6,7 +6,8 @@ import com.flipperdevices.core.decompose.DecomposeComponent
 abstract class BottomBarDecomposeComponent : DecomposeComponent() {
     fun interface Factory {
         operator fun invoke(
-            componentContext: ComponentContext
+            componentContext: ComponentContext,
+            onLockerChosen: (String, Int) -> Unit
         ): BottomBarDecomposeComponent
     }
 }

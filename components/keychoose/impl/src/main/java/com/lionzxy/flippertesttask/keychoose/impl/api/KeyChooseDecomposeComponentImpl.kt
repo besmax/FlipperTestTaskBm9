@@ -23,6 +23,7 @@ import javax.inject.Provider
 class KeyChooseDecomposeComponentImpl @AssistedInject constructor(
     @Assisted componentContext: ComponentContext,
     @Assisted private val tabName: String,
+    @Assisted private val lockerNumber: Int,
     private val keyViewModelProvider: Provider<KeyViewModel>
 ) : KeyChooseDecomposeComponent(componentContext) {
 
@@ -48,7 +49,8 @@ class KeyChooseDecomposeComponentImpl @AssistedInject constructor(
     interface Factory : KeyChooseDecomposeComponent.Factory {
         override fun invoke(
             componentContext: ComponentContext,
-            tabName: String
+            tabName: String,
+            lockerNumber: Int,
         ): KeyChooseDecomposeComponentImpl
     }
 

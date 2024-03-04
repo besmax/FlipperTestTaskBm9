@@ -1,6 +1,7 @@
 package com.lionzxy.flippertesttask.lockerchoose.impl.composable
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,13 +28,13 @@ import kotlinx.collections.immutable.toPersistentList
 @Composable
 fun LockerComposableScreen(
     uiState: LockerChooseScreenState,
-    // todo() need tabName and Locker number
-    onLockerClick: (String, Int) -> Unit
+    onLockerClick: (String, Int) -> Unit,
+    tabName: String,
 ) {
     when (uiState) {
         is LockerChooseScreenState.Content -> {
             val lockerList = remember(uiState) { uiState.lockers.toPersistentList() }
-            ShowContent(lockerList)
+            ShowContent(lockerList, onLockerClick, tabName)
         }
 
         is LockerChooseScreenState.Loading -> ShowLoading()
@@ -41,7 +42,11 @@ fun LockerComposableScreen(
 }
 
 @Composable
-fun ShowContent(lockerList: PersistentList<LockerModel>) {
+fun ShowContent(
+    lockerList: PersistentList<LockerModel>,
+    onLockerClick: (String, Int) -> Unit,
+    tabName: String,
+) {
     LazyColumn {
         items(
             items = lockerList,
@@ -52,6 +57,7 @@ fun ShowContent(lockerList: PersistentList<LockerModel>) {
                     .fillMaxWidth()
                     .height(1.dp)
                     .background(Color.Gray)
+                    .clickable { onLockerClick(tabName, lockerItem.lockerNumber) }
             )
             Row(Modifier.padding(16.dp)) {
                 Text(

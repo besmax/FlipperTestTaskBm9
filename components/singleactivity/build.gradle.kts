@@ -10,7 +10,8 @@ dependencies {
     implementation(projects.components.core.decompose)
     implementation(projects.components.core.log)
 
-    implementation(projects.components.bottombar.api)
+    implementation(projects.components.core.rootscreen.api)
+
 
     implementation(libs.annotations)
     implementation(libs.appcompat)

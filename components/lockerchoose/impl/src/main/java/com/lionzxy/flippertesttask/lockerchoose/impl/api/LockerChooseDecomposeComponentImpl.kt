@@ -12,7 +12,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.lionzxy.flippertesttask.core.di.AppGraph
 import com.lionzxy.flippertesttask.core.uilifecycle.viewModelWithFactory
 import com.lionzxy.flippertesttask.lockerchoose.api.LockerChooseDecomposeComponent
@@ -22,13 +21,16 @@ import com.squareup.anvil.annotations.ContributesBinding
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import javax.inject.Provider
 
 class LockerChooseDecomposeComponentImpl @AssistedInject constructor(
     @Assisted componentContext: ComponentContext,
     @Assisted private val tabName: String,
-    private val lockerViewModelFactory: LockerViewModel.Factory
+    private val lockerViewModelFactory: LockerViewModel.Factory,
+    @Assisted  private val onLockerClick: (String, Int) -> Unit,
 ) : LockerChooseDecomposeComponent(componentContext) {
+    override fun onLockerClick(tabName: String, lockerNumber: Int) {
+        onLockerClick(tabName, lockerNumber)
+    }
 
     @Composable
     override fun Render() {
@@ -46,7 +48,7 @@ class LockerChooseDecomposeComponentImpl @AssistedInject constructor(
                 fontSize = 32.sp,
                 textAlign = TextAlign.Start
             )
-            LockerComposableScreen(uiState)
+            LockerComposableScreen(uiState, onLockerClick, tabName)
         }
     }
 
@@ -55,7 +57,8 @@ class LockerChooseDecomposeComponentImpl @AssistedInject constructor(
     interface Factory : LockerChooseDecomposeComponent.Factory {
         override fun invoke(
             componentContext: ComponentContext,
-            tabName: String
+            tabName: String,
+            onLockerClick: (String, Int) -> Unit,
         ): LockerChooseDecomposeComponentImpl
     }
 }

@@ -10,5 +10,7 @@ dependencies {
     implementation(projects.components.core.di)
     implementation(projects.components.core.decompose)
 
+    implementation(libs.compose.ui)
+    implementation(libs.compose.foundation)
     implementation(libs.bundles.decompose)
 }
