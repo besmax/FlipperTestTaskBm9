@@ -12,7 +12,6 @@ dependencies {
 
     implementation(projects.components.core.rootscreen.api)
 
-
     implementation(libs.annotations)
     implementation(libs.appcompat)
 

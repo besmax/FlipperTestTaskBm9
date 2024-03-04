@@ -3,6 +3,8 @@ package com.lionzxy.flippertesttask.core.rootscreen.impl
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.res.ResourcesCompat
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
@@ -15,6 +17,7 @@ import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.flipperdevices.core.decompose.DecomposeComponent
 import com.lionzxy.flippertesttask.bottombar.BottomBarDecomposeComponent
 import com.lionzxy.flippertesttask.core.di.AppGraph
+import com.lionzxy.flippertesttask.core.uilifecycle.findActivity
 import com.lionzxy.flippertesttask.keychooseapi.KeyChooseDecomposeComponent
 import com.lionzxy.flippertesttask.rootscreen.config.RootScreenConfig
 import com.squareup.anvil.annotations.ContributesBinding
@@ -32,29 +35,29 @@ class RootDecomposeComponentImpl @AssistedInject constructor(
 
     private val scope = coroutineScope(Dispatchers.Default)
     private val navigation =
-        StackNavigation<com.lionzxy.flippertesttask.rootscreen.config.RootScreenConfig>()
+        StackNavigation<RootScreenConfig>()
 
-    private val stack: Value<ChildStack<com.lionzxy.flippertesttask.rootscreen.config.RootScreenConfig, DecomposeComponent>> =
+    private val stack: Value<ChildStack<RootScreenConfig, DecomposeComponent>> =
         childStack(
             source = navigation,
-            serializer = com.lionzxy.flippertesttask.rootscreen.config.RootScreenConfig.serializer(),
-            initialConfiguration = com.lionzxy.flippertesttask.rootscreen.config.RootScreenConfig.BottomBar,
+            serializer = RootScreenConfig.serializer(),
+            initialConfiguration = RootScreenConfig.BottomBar,
             handleBackButton = true,
             childFactory = ::child,
         )
 
     private fun child(
-        config: com.lionzxy.flippertesttask.rootscreen.config.RootScreenConfig,
+        config: RootScreenConfig,
         componentContext: ComponentContext
     ): DecomposeComponent = when (config) {
-        is com.lionzxy.flippertesttask.rootscreen.config.RootScreenConfig.BottomBar -> bottomBarDecomposeComponentFactory(
+        is RootScreenConfig.BottomBar -> bottomBarDecomposeComponentFactory(
             componentContext = componentContext,
             onLockerChosen = { tabName, lockerNumber ->
                 navigation.push(RootScreenConfig.KeyChoose(tabName, lockerNumber))
             },
         )
 
-        is com.lionzxy.flippertesttask.rootscreen.config.RootScreenConfig.KeyChoose -> keyChooseDecomposeComponentFactory(
+        is RootScreenConfig.KeyChoose -> keyChooseDecomposeComponentFactory(
             componentContext,
             config.tabName,
             config.lockerNumber,
@@ -70,6 +73,35 @@ class RootDecomposeComponentImpl @AssistedInject constructor(
             modifier = Modifier,
             stack = childStack,
         ) {
+            val activity = LocalContext.current.findActivity()
+            when (it.configuration) {
+                is RootScreenConfig.BottomBar -> {
+                    activity.window.statusBarColor = ResourcesCompat.getColor(
+                        activity.resources,
+                        R.color.background,
+                        activity.theme
+                    )
+                    activity.window.navigationBarColor =
+                        ResourcesCompat.getColor(activity.resources, R.color.accent, activity.theme)
+                    activity.window.setBackgroundDrawableResource(R.color.background)
+                }
+
+                is RootScreenConfig.KeyChoose -> {
+                    activity.window.statusBarColor = ResourcesCompat.getColor(
+                        activity.resources,
+                        R.color.secondAccent,
+                        activity.theme
+                    )
+                    activity.window.navigationBarColor =
+                        ResourcesCompat.getColor(
+                            activity.resources,
+                            R.color.secondAccent,
+                            activity.theme
+                        )
+                    activity.window.setBackgroundDrawableResource(R.color.secondAccent)
+                }
+            }
+
             it.instance.Render()
         }
     }

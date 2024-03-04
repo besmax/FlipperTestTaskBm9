@@ -3,8 +3,11 @@ package com.lionzxy.flippertesttask.keychoose.impl.api
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -12,6 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.lionzxy.flippertesttask.core.di.AppGraph
+import com.lionzxy.flippertesttask.keychoose.impl.composable.KeyComposableScreen
 import com.lionzxy.flippertesttask.keychoose.impl.viewmodel.KeyViewModel
 import com.lionzxy.flippertesttask.keychooseapi.KeyChooseDecomposeComponent
 import com.squareup.anvil.annotations.ContributesBinding
@@ -31,16 +35,18 @@ class KeyChooseDecomposeComponentImpl @AssistedInject constructor(
 
     @Composable
     override fun Render() {
+        val uiState by keyViewModel.getUiState().collectAsState()
         Column(
             Modifier.fillMaxSize()
         ) {
             Text(
                 modifier = Modifier.padding(16.dp),
-                text = "$tabName tab",
+                text = "Selecting a key for the locker #$lockerNumber",
                 fontSize = 32.sp,
                 textAlign = TextAlign.Start
             )
-            TODO("Not yet implemented")
+
+            KeyComposableScreen(lockerNumber = lockerNumber, uiState = uiState, onKeyClick = {  })
         }
     }
 

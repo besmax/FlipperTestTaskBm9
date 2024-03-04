@@ -26,6 +26,8 @@ class SingleActivity : AppCompatActivity(), LogTagProvider {
             componentContext = defaultComponentContext()
         )
 
+
+
         window.statusBarColor = ResourcesCompat.getColor(resources, R.color.background, theme)
         window.navigationBarColor = ResourcesCompat.getColor(resources, R.color.accent, theme)
 

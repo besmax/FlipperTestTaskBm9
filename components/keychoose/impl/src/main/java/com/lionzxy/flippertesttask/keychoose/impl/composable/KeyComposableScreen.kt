@@ -17,16 +17,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.lionzxy.flippertesttask.core.uilifecycle.findActivity
 import com.lionzxy.flippertesttask.keychooseapi.model.KeyChooseScreenState
 import com.lionzxy.flippertesttask.keychooseapi.model.KeyModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 
 @Composable
-fun LockerComposableScreen(
+fun KeyComposableScreen(
+    lockerNumber: Int,
     uiState: KeyChooseScreenState,
-    onKeyClick: (Int) -> Unit
+    onKeyClick: (Int) -> Unit,
 ) {
 
     when (uiState) {
