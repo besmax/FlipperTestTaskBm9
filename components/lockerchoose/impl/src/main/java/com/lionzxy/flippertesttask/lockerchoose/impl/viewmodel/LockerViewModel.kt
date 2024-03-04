@@ -27,7 +27,7 @@ class LockerViewModel @AssistedInject constructor(
 
     fun getUiState() = uiState.asStateFlow()
 
-    private fun getLockers() {
+    fun getLockers() {
         viewModelScope.launch {
             val deferred = viewModelScope.async {
                 when (tabName) {

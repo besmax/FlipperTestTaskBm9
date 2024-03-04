@@ -9,6 +9,7 @@ android-gradle = "8.2.2" # https://developer.android.com/studio/releases/gradle-
 compose-material = "1.6.2" # https://developer.android.com/jetpack/androidx/releases/compose#versions
 compose-foundation = "1.6.2" # https://developer.android.com/jetpack/androidx/releases/compose#versions
 compose-ui = "1.6.2" # https://developer.android.com/jetpack/androidx/releases/compose#versions
+compose-lifecycle = "2.7.0"
 compose-compiler = "1.5.8" # https://developer.android.com/jetpack/androidx/releases/compose#versions
 serialization-json = "1.6.2" # https://github.com/Kotlin/kotlinx.serialization/releasesm
 dagger = "2.50" # https://github.com/google/dagger/releases
@@ -55,6 +56,7 @@ compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose-ui" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-ui" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose-foundation" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose-material" }
+compose-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "compose-lifecycle" }
 
 # Dependency Injection
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }

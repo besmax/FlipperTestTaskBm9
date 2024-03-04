@@ -14,12 +14,17 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.currentStateAsState
 import com.lionzxy.flippertesttask.lockerchoose.api.model.LockerChooseScreenState
 import com.lionzxy.flippertesttask.lockerchoose.api.model.LockerModel
 import kotlinx.collections.immutable.PersistentList
@@ -30,7 +35,18 @@ fun LockerComposableScreen(
     uiState: LockerChooseScreenState,
     onLockerClick: (String, Int) -> Unit,
     tabName: String,
+    refreshUiState: () -> Unit
 ) {
+
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val state by lifecycleOwner.lifecycle.currentStateAsState()
+
+    LaunchedEffect(key1 = state) {
+        if (state == Lifecycle.State.RESUMED) {
+            refreshUiState.invoke()
+        }
+    }
+
     when (uiState) {
         is LockerChooseScreenState.Content -> {
             val lockerList = remember(uiState) { uiState.lockers.toPersistentList() }
@@ -57,9 +73,12 @@ fun ShowContent(
                     .fillMaxWidth()
                     .height(1.dp)
                     .background(Color.Gray)
-                    .clickable { onLockerClick(tabName, lockerItem.lockerNumber) }
             )
-            Row(Modifier.padding(16.dp)) {
+            Row(
+                Modifier
+                    .padding(16.dp)
+                    .clickable { onLockerClick(tabName, lockerItem.lockerNumber) }
+            ) {
                 Text(
                     modifier = Modifier
                         .padding()

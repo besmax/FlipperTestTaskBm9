@@ -64,7 +64,7 @@ class RootDecomposeComponentImpl @AssistedInject constructor(
             componentContext,
             config.tabName,
             config.lockerNumber,
-            {  }
+            { navigation.pop() }
         )
 
     }

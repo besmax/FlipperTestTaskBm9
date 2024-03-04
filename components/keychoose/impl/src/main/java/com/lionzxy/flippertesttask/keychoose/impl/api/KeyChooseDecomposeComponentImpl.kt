@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -21,6 +22,8 @@ import com.squareup.anvil.annotations.ContributesBinding
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Provider
 
 class KeyChooseDecomposeComponentImpl @AssistedInject constructor(
@@ -35,6 +38,7 @@ class KeyChooseDecomposeComponentImpl @AssistedInject constructor(
 
     @Composable
     override fun Render() {
+        val coroutineScope = rememberCoroutineScope()
         val uiState by keyViewModel.getUiState().collectAsState()
         Column(
             Modifier.fillMaxSize()
@@ -50,8 +54,12 @@ class KeyChooseDecomposeComponentImpl @AssistedInject constructor(
                 lockerNumber = lockerNumber,
                 uiState = uiState,
                 onKeyClick = { lockerNumber, keyNumber, tabName ->
-                    keyViewModel.setKey(lockerNumber, keyNumber, tabName)
-                    navigateBack.invoke()
+                    coroutineScope.launch {
+                        keyViewModel.setKey(lockerNumber, keyNumber, tabName)
+                        delay(200)
+                        navigateBack.invoke()
+                    }
+
                 },
                 tabName = tabName
             )

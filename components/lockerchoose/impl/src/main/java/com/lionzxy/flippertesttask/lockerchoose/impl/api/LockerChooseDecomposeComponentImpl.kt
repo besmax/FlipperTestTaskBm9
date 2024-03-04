@@ -26,7 +26,7 @@ class LockerChooseDecomposeComponentImpl @AssistedInject constructor(
     @Assisted componentContext: ComponentContext,
     @Assisted private val tabName: String,
     private val lockerViewModelFactory: LockerViewModel.Factory,
-    @Assisted  private val onLockerClick: (String, Int) -> Unit,
+    @Assisted private val onLockerClick: (String, Int) -> Unit,
 ) : LockerChooseDecomposeComponent(componentContext) {
     override fun onLockerClick(tabName: String, lockerNumber: Int) {
         onLockerClick(tabName, lockerNumber)
@@ -48,7 +48,7 @@ class LockerChooseDecomposeComponentImpl @AssistedInject constructor(
                 fontSize = 32.sp,
                 textAlign = TextAlign.Start
             )
-            LockerComposableScreen(uiState, onLockerClick, tabName)
+            LockerComposableScreen(uiState, onLockerClick, tabName, lockerViewModel::getLockers)
         }
     }
 
