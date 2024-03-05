@@ -1,9 +1,8 @@
 package com.lionzxy.flippertesttask.keychoose.impl.viewmodel
 
 import com.lionzxy.flippertesttask.core.uilifecycle.DecomposeViewModel
-import com.lionzxy.flippertesttask.keychoose.impl.model.map
+import com.lionzxy.flippertesttask.keychoose.impl.converters.map
 import com.lionzxy.flippertesttask.keychooseapi.model.KeyChooseScreenState
-import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
