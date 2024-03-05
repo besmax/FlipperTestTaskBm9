@@ -1,9 +1,7 @@
 package com.lionzxy.flippertesttask.bottombar.composable
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text

@@ -6,12 +6,12 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.lionzxy.flippertesttask.core.di.AppGraph
 import com.lionzxy.flippertesttask.database.impl.AppDatabase
-import com.lionzxy.flippertesttask.database.impl.utils.MockData
 import com.lionzxy.flippertesttask.database.impl.dao.KeyDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockerDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockersKeysArchiveDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockersKeysDeviceDao
 import com.lionzxy.flippertesttask.database.impl.dao.LockersKeysHubDao
+import com.lionzxy.flippertesttask.database.impl.utils.MockData
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
