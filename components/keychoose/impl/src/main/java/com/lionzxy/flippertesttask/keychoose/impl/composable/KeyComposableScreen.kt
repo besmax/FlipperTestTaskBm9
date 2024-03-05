@@ -65,10 +65,11 @@ fun ShowContent(
                     .clickable { onKeyClick.invoke(lockerNumber, keyItem.number, tabName) }
             ) {
                 Text(
+                    text = "Key #${keyItem.number}",
                     modifier = Modifier
                         .padding()
                         .weight(1f),
-                    text = "Key #${keyItem.number}"
+                    color = Color.White
                 )
             }
         }

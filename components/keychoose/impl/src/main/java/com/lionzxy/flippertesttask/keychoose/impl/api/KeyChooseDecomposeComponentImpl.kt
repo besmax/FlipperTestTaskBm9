@@ -9,6 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,7 +48,8 @@ class KeyChooseDecomposeComponentImpl @AssistedInject constructor(
                 modifier = Modifier.padding(16.dp),
                 text = "Selecting a key for the locker #$lockerNumber",
                 fontSize = 32.sp,
-                textAlign = TextAlign.Start
+                textAlign = TextAlign.Start,
+                color = Color.White
             )
 
             KeyComposableScreen(
