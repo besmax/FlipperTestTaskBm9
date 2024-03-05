@@ -1,3 +1,6 @@
+# Completed test task 
+[Screen_recording_20240305_082554.webm](https://github.com/besmax/FlipperTestTaskBm9/assets/88286767/604e6b3b-bf78-4324-9492-e6e4008f44c6)
+
 # Test task in Flipper Devices on Android developer
 
 This assignment is designed to be as close to a real-world task as possible, even though it's not simple. The exact same architecture and screens are in the main application and you will be able to use it as a reference to solve the test case
