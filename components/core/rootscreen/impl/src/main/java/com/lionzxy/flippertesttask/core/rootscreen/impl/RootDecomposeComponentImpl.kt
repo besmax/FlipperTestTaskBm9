@@ -10,12 +10,10 @@ import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
-import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
-import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.flipperdevices.core.decompose.DecomposeComponent
 import com.lionzxy.flippertesttask.bottombar.BottomBarDecomposeComponent
 import com.lionzxy.flippertesttask.core.di.AppGraph
@@ -27,7 +25,6 @@ import com.squareup.anvil.annotations.ContributesBinding
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.Dispatchers
 
 class RootDecomposeComponentImpl @AssistedInject constructor(
     @Assisted componentContext: ComponentContext,
@@ -36,9 +33,7 @@ class RootDecomposeComponentImpl @AssistedInject constructor(
 ) : RootDecomposeComponent(componentContext),
     ComponentContext by componentContext {
 
-    private val scope = coroutineScope(Dispatchers.Default)
-    private val navigation =
-        StackNavigation<RootScreenConfig>()
+    private val navigation = StackNavigation<RootScreenConfig>()
 
     private val stack: Value<ChildStack<RootScreenConfig, DecomposeComponent>> =
         childStack(

@@ -17,6 +17,5 @@ dependencies {
     implementation(libs.compose.material)
     implementation(libs.decompose)
     implementation(libs.compose.lifecycle)
-
     implementation(libs.kotlin.immutable.collections)
 }

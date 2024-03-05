@@ -8,17 +8,14 @@ android.namespace = "com.lionzxy.flippertesttask.keychoose.impl"
 
 dependencies {
     implementation(projects.components.keychoose.api)
-
     implementation(projects.components.core.di)
     implementation(projects.components.database.api)
     implementation(projects.components.core.decompose)
     implementation(projects.components.core.ui)
-    implementation(projects.components.keychoose.api)
 
     implementation(libs.compose.ui)
     implementation(libs.compose.foundation)
     implementation(libs.compose.material)
     implementation(libs.decompose)
-
     implementation(libs.kotlin.immutable.collections)
 }

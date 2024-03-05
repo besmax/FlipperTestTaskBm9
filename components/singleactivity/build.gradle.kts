@@ -9,12 +9,10 @@ dependencies {
     implementation(projects.components.core.di)
     implementation(projects.components.core.decompose)
     implementation(projects.components.core.log)
-
     implementation(projects.components.core.rootscreen.api)
 
     implementation(libs.annotations)
     implementation(libs.appcompat)
-
     implementation(libs.compose.ui)
     implementation(libs.compose.foundation)
     implementation(libs.bundles.decompose)

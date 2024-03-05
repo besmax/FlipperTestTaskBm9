@@ -2,7 +2,6 @@ plugins {
     id("flipper.android-lib")
     id("flipper.anvil")
     id("com.google.devtools.ksp")
-
 }
 
 android.namespace = "com.lionzxy.flippertesttask.database.impl"
