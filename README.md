@@ -1,6 +1,16 @@
 # Completed test task 
 [Screen_recording_20240305_082554.webm](https://github.com/besmax/FlipperTestTaskBm9/assets/88286767/604e6b3b-bf78-4324-9492-e6e4008f44c6)
 
+# Feedback:
+Тестовое задание оказалось слабее, чем мы ожидали.
+Фидбек от технической команды, как мы и обещали прикладываю:
+
+"- Повторяется два раза версия Kotlin в version catalog
+- Цвет статус бара и боттом бара меняется программно во время рекомпозиции, что может нестабильно работать в случае перехода между страницами в разных конфигурациях, тут ожидалось использовать edge to edge и рисовать статусбары на экране
+- Зависимости указаны в settings.gradle.kts отличным способом от того что используется в проекте
+- Добавлен ненужный "androidDynamicFeature"
+- Пустые тесты, в которых не было необходимости"
+
 # Test task in Flipper Devices on Android developer
 
 This assignment is designed to be as close to a real-world task as possible, even though it's not simple. The exact same architecture and screens are in the main application and you will be able to use it as a reference to solve the test case
